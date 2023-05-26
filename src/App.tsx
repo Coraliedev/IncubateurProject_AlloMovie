@@ -1,13 +1,11 @@
-
 import './App.css'
+import Routes from './routes/index'
 
-function App() {
-
-
+const App: React.FC = () => {
   return (
-    <>
-      <h1 className="text-center">App</h1>
-    </>
+    <div className="app h-screen">
+      <Routes />
+    </div>
   )
 }
 
