@@ -4,6 +4,7 @@ import { API_KEY, DISCOVER_API, SEARCH_API } from "../utils/api"
 import axios from "axios"
 import { useQuery } from "@tanstack/react-query"
 import MovieCard from "../components/MovieCard"
+import Pagination from "../components/Pagination"
 
 const Home: React.FC = () => {
   const [searchKey, setSearchKey] = useState<string | undefined>()
@@ -37,13 +38,16 @@ const Home: React.FC = () => {
 
 
   return (
-    <div className="dark:bg-gray-900 py-12 mx-auto px-4 md:px-12">
-      <div className="dark:bg-gray-900 px-8 py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-16 gap-y-16">
-        {movies.map((movie: MovieModel) => (
-          <MovieCard movie={movie} key={movie.id} />
-        ))}
-      </div>
-    </div >
+    <>
+      <div className="dark:bg-gray-900 py-12 mx-auto px-4 md:px-12">
+        <div className="dark:bg-gray-900 px-8 py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-16 gap-y-16">
+          {movies.map((movie: MovieModel) => (
+            <MovieCard movie={movie} key={movie.id} />
+          ))}
+        </div>
+      </div >
+      <Pagination page={page} setPage={setPage} />
+    </>
   )
 }
 

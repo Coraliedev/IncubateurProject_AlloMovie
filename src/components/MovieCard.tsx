@@ -17,6 +17,7 @@ const setColorVote = (vote: number) => {
       return "bg-red-500"
     }
   }
+
   return (
       <div className="rounded-xl relative text-gray-100 font-bold hover:scale-110" >
         <img
