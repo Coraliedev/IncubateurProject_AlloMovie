@@ -8,7 +8,7 @@ const queryClient = new QueryClient();
 const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
-    <div className="app h-screen">
+    <div className="app h-screen dark:bg-gray-900">
       <Routes />
     </div>
     <ReactQueryDevtools initialIsOpen={false} />
