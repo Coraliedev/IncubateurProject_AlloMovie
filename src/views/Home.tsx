@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query"
 import MovieCard from "../components/MovieCard"
 import Pagination from "../components/Pagination"
 import SearchBar from "../components/SearchBar"
+import RequestResultsModel from "../models/RequestResult.model"
 
 const Home: React.FC = () => {
   const [searchKey, setSearchKey] = useState<string | undefined>()
@@ -16,14 +17,14 @@ const Home: React.FC = () => {
   // fetch movies from api with searchKey and page 
   const fetchMovies = async () => {
     {
-      const { data } = await axios.get(`${searchKey ? SEARCH_API : DISCOVER_API}`, {
+      const { data } = await axios.get<RequestResultsModel>(`${searchKey ? SEARCH_API : DISCOVER_API}`, {
         params: {
           api_key: API_KEY,
           query: searchKey,
           page: page
         }
       })
-      return data.results
+      return data.results as MovieModel[]
     }
   }
 
