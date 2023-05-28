@@ -39,13 +39,11 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <div className="dark:bg-gray-900 py-12 mx-auto px-4 md:px-12">
-        <div className="dark:bg-gray-900 px-8 py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-16 gap-y-16">
+        <div className="dark:bg-gray-900 py-12 mx-auto md:px-12 px-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-16 gap-y-16">
           {movies.map((movie: MovieModel) => (
             <MovieCard movie={movie} key={movie.id} />
           ))}
         </div>
-      </div >
       <Pagination page={page} setPage={setPage} />
     </>
   )
