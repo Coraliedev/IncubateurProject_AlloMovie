@@ -6,7 +6,7 @@ interface SearchBarProps {
 
 const SearchInput: React.FC<SearchBarProps> = ({ setSearchKey }) => {  
   return (
-    <div className="flex items-center dark:bg-gray-900 pl-10">
+    <div className="max-w-screen flex items-center dark:bg-gray-900 pl-10">
       <MagnifyingGlassIcon color="rgb(156 163 175)" width="40px"/>
       <input
         type="text"
