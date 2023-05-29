@@ -10,7 +10,7 @@ const SearchInput: React.FC<SearchBarProps> = ({ setSearchKey }) => {
       <MagnifyingGlassIcon color="rgb(156 163 175)" width="40px"/>
       <input
         type="text"
-        className="dark:bg-gray-900 text-gray-400 font-bold text-xl md:text-3xl lg:text-5xl py-2 px-4 outline-none"
+        className="dark:bg-gray-900 align-middle text-gray-400 font-bold text-l md:text-2xl lg:text-3xl py-2 px-4 outline-none w-40 md:w-80 lg:w-96"
         placeholder="Search..."
         onInput={(e: React.ChangeEvent<HTMLInputElement>) => {setSearchKey(e.target.value.toLowerCase())}}
       />
