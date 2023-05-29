@@ -20,8 +20,8 @@ const NavBar = () => {
         </ul>
         <div className="hidden md:flex items-center space-x-5">
           {isConnected ?
-            <ArrowRightOnRectangleIcon className="h-12 w-12 hover:text-blue-400" /> :
-            <UserIcon className="h-12 w-12 hover:text-blue-400" />}
+            <ArrowRightOnRectangleIcon onClick={() => setIsConnected(false)} className="h-12 w-12 hover:text-blue-400" /> :
+            <UserIcon onClick={() => setIsConnected(true)} className="h-12 w-12 hover:text-blue-400" />}
         </div>
       </div>
       <div className="relative flex">   <button onClick={() =>
@@ -35,8 +35,8 @@ const NavBar = () => {
             <li className="mb-2"><Link to="/favorites"><HeartIcon className="h-6 w-6 hover:text-blue-400" /></Link></li>
             <li>
               {isConnected ?
-                <ArrowRightOnRectangleIcon className="h-6 w-6 hover:text-blue-400" /> :
-                <UserIcon className="h-6 w-6 hover:text-blue-400" />}</li>
+                <ArrowRightOnRectangleIcon onClick={() => setIsConnected(false)}  className="h-6 w-6 hover:text-blue-400" /> :
+                <UserIcon onClick={() => setIsConnected(true)} className="h-6 w-6 hover:text-blue-400" />}</li>
           </ul>
         </div> : null}
       </div>

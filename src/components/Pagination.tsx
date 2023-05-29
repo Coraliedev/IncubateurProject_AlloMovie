@@ -6,7 +6,7 @@ interface PaginationProps {
 }
 
 
-const Pagination = ({ page, setPage }: PaginationProps) => {
+const Pagination: React.FC<PaginationProps>= ({ page, setPage }) => {
 
   const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
