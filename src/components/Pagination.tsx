@@ -23,7 +23,7 @@ const Pagination = ({ page, setPage }: PaginationProps) => {
   }
 
 return (
-  <div className="max-w-screen dark:bg-gray-900 text-gray-100 font-bold flex justify-around text-3xl md:text-6xl lg:text-7xl pb-10">
+  <div className="max-w-screen dark:bg-gray-900 text-gray-400 font-bold flex justify-around text-3xl md:text-6xl lg:text-7xl pb-10">
     <button onClick={() => 
       previousPage()
 }>

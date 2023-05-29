@@ -5,8 +5,8 @@ import axios from "axios"
 import { useQuery } from "@tanstack/react-query"
 import MovieCard from "../components/MovieCard"
 import Pagination from "../components/Pagination"
-import SearchBar from "../components/SearchBar"
 import RequestResultsModel from "../models/RequestResult.model"
+import Header from "../components/Header"
 
 const Home: React.FC = () => {
   const [searchKey, setSearchKey] = useState<string | undefined>()
@@ -41,19 +41,19 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <SearchBar setSearchKey={setSearchKey} />
-      {isLoading ? <p className="dark:bg-gray-900 text-gray-100 font-bold text-gray-100 font-bold flex justify-center items-center text-3xl md:text-4xl lg:text-6xl">Loading...</p> :
+      <Header setSearchKey={setSearchKey} />
+      {isLoading ? <p className="dark:bg-gray-900 text-gray-400 font-bold text-gray-100 font-bold flex justify-center items-center text-3xl md:text-4xl lg:text-6xl">Loading...</p> :
         movies.length < 1 ?
-          <h1 className="dark:bg-gray-900 min-h-[80%] text-gray-100 font-bold flex justify-center items-center text-3xl md:text-4xl lg:text-6xl">No movies found</h1> :
+          <h1 className="dark:bg-gray-900 h-[80%] text-gray-400 font-bold flex justify-center items-center text-3xl md:text-4xl lg:text-6xl">No movies found</h1> :
           <>
             <div className="max-w-screen dark:bg-gray-900 py-12 mx-auto md:px-12 px-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-16 gap-y-16">
               {movies.map((movie: MovieModel) => (
                 <MovieCard movie={movie} key={movie.id} />
               ))}
             </div>
-            
+
           </>}
-          <Pagination page={page} setPage={setPage} />
+      <Pagination page={page} setPage={setPage} />
     </>
   )
 }

@@ -1,6 +1,11 @@
+import NavBar from "../components/NavBar"
+
 const Favorites: React.FC = () => {
   return (
-    <h1>Favorites Page</h1>
+    <>
+    <NavBar />
+      <h1>Favorites Page</h1>
+    </>
   )
 }
 
