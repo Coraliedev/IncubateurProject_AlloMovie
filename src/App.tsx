@@ -2,10 +2,18 @@ import './App.css'
 import Routes from './routes/index'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { auth } from './firebase'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { useEffect } from 'react'
 
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
+
+  useEffect (() => {
+    signInWithEmailAndPassword(auth, "coral@gmail.com", "coralie" );
+  }, [])
+
   return (
     <QueryClientProvider client={queryClient}>
     <div className="app h-screen max-w-screen dark:bg-gray-900">
