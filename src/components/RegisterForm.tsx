@@ -8,12 +8,12 @@ import AuthModalContext from '../context/AuthModalContext';
 const RegisterForm = () => {
 
   const { register } = useContext(AuthFirebaseContext);
-   const {setModalVisibility } = useContext(AuthModalContext);
+  const { setModalVisibility } = useContext(AuthModalContext);
 
   const handleRegister = async (values: RegisterFormModel) => {
     const { email, password, confirmPassword } = values;
     try {
-      await register(email, password||confirmPassword);
+      await register(email, password || confirmPassword);
       setModalVisibility("hidden");
     } catch (error) {
       console.log(error);
@@ -30,24 +30,24 @@ const RegisterForm = () => {
     <Formik
       initialValues={{ email: '', password: '', confirmPassword: '' }}
       validationSchema={RegisterSchema}
-      onSubmit={ handleRegister}
+      onSubmit={handleRegister}
     >
       <Form>
         <div className="mb-3">
           <label className="inline-block mb-2" htmlFor="email">Email</label>
-          <Field className="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded" type="email" name="email" />
+          <Field className="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded" type="email" name="email" id="email" />
           <ErrorMessage className="text-red-500" name="email" component="div" />
         </div>
 
         <div className="mb-3">
           <label className="inline-block mb-2" htmlFor="password">Password</label>
-          <Field className="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded" type="password" name="password" />
+          <Field className="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded" type="password" name="password" id="password" />
           <ErrorMessage className="text-red-500" name="password" component="div" />
         </div>
 
         <div className="mb-3">
           <label className="inline-block mb-2" htmlFor="confirmPassword">Confirm Password</label>
-          <Field className="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded" type="password" name="confirmPassword" />
+          <Field className="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded" type="password" name="confirmPassword" id="confirmPassword" />
           <ErrorMessage className="text-red-500" name="confirmPassword" component="div" />
         </div>
 
