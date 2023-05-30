@@ -1,11 +1,14 @@
 import { Bars3Icon, FilmIcon, HeartIcon, UserIcon, ArrowRightOnRectangleIcon, XMarkIcon } from "@heroicons/react/20/solid"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Link } from "react-router-dom"
-import { auth } from "../firebase"
+import AuthFirebaseContext from "../context/AuthFirebaseContext"
 
 const NavBar = () => {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false)
   const [isConnected, setIsConnected] = useState(false)
+  const { currentUserUid } = useContext(AuthFirebaseContext);
+
+  console.log(currentUserUid)
 
   const handleBurgerClick = () => {
     setIsBurgerOpen(!isBurgerOpen)
@@ -22,7 +25,7 @@ const NavBar = () => {
         <div className="hidden md:flex items-center space-x-5">
           {isConnected ?
             <ArrowRightOnRectangleIcon onClick={() => setIsConnected(false)} className="h-12 w-12 hover:text-blue-400" /> :
-            <UserIcon onClick={() => {{setIsConnected(true)} console.log(auth.currentUser?.uid)}} className="h-12 w-12 hover:text-blue-400" />}
+            <UserIcon onClick={() => {{setIsConnected(true)}}} className="h-12 w-12 hover:text-blue-400" />}
         </div>
       </div>
       <div className="relative flex">   <button onClick={() =>
