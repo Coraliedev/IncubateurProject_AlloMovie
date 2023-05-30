@@ -4,6 +4,7 @@ import { AuthFirebaseProvider } from './providers/AuthFirebaseProvider';
 import Routes from './routes/index'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import Auth from './components/Auth';
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,7 @@ const App: React.FC = () => {
         <AuthFirebaseProvider>
         <AuthModalProvider>
           <Routes />
+          <Auth />
         </AuthModalProvider>
         </AuthFirebaseProvider>
       </div>

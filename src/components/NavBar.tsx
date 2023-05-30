@@ -2,10 +2,11 @@ import { Bars3Icon, FilmIcon, HeartIcon, UserIcon, ArrowRightOnRectangleIcon, XM
 import { useContext, useState } from "react"
 import { Link } from "react-router-dom"
 import AuthFirebaseContext from "../context/AuthFirebaseContext"
+import AuthModalContext from "../context/AuthModalContext"
 
 const NavBar = () => {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false)
-  const [isConnected, setIsConnected] = useState(false)
+  const { setModalVisibility } = useContext(AuthModalContext);
   const { currentUserUid } = useContext(AuthFirebaseContext);
 
   console.log(currentUserUid)
@@ -23,9 +24,9 @@ const NavBar = () => {
           <li><Link to="/favorites"><HeartIcon className="h-12 w-12 hover:text-blue-400" /></Link></li>
         </ul>
         <div className="hidden md:flex items-center space-x-5">
-          {isConnected ?
-            <ArrowRightOnRectangleIcon onClick={() => setIsConnected(false)} className="h-12 w-12 hover:text-blue-400" /> :
-            <UserIcon onClick={() => {{setIsConnected(true)}}} className="h-12 w-12 hover:text-blue-400" />}
+          {currentUserUid ?
+            <ArrowRightOnRectangleIcon className="h-12 w-12 hover:text-blue-400" /> :
+            <UserIcon onClick={() => { setModalVisibility("") }} className="h-12 w-12 hover:text-blue-400" />}
         </div>
       </div>
       <div className="relative flex">   <button onClick={() =>
@@ -38,9 +39,9 @@ const NavBar = () => {
             <li className="mb-2 "><Link to="/"><FilmIcon className="h-6 w-6 hover:text-blue-400" /></Link></li>
             <li className="mb-2"><Link to="/favorites"><HeartIcon className="h-6 w-6 hover:text-blue-400" /></Link></li>
             <li>
-              {isConnected ?
-                <ArrowRightOnRectangleIcon onClick={() => setIsConnected(false)}  className="h-6 w-6 hover:text-blue-400" /> :
-                <UserIcon onClick={() => setIsConnected(true)} className="h-6 w-6 hover:text-blue-400" />}</li>
+              {currentUserUid?
+                <ArrowRightOnRectangleIcon  className="h-6 w-6 hover:text-blue-400" /> :
+                <UserIcon onClick={() => { setModalVisibility("") }} className="h-6 w-6 hover:text-blue-400" />}</li>
           </ul>
         </div> : null}
       </div>
