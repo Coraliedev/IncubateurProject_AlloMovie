@@ -1,4 +1,4 @@
-import MovieModel from "./movie.model";
+import MovieModel from "./Movie.model";
 
 export default interface RequestResultsModel {
   page: number;

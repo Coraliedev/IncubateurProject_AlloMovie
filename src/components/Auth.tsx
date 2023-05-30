@@ -8,7 +8,6 @@ const Auth = () => {
   const { modalVisibility, setModalVisibility } = useContext(AuthModalContext);
   const [tab, setTab] = useState("login")
 
-  console.log(modalVisibility)
   return (
     <div className={`${modalVisibility} fixed z-10 inset-0 overflow-y-auto`} id="modal">
       <div

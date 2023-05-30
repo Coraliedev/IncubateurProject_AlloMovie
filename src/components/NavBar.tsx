@@ -8,6 +8,7 @@ const NavBar = () => {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false)
   const { setModalVisibility } = useContext(AuthModalContext);
   const { currentUserUid } = useContext(AuthFirebaseContext);
+  const { logout } = useContext(AuthFirebaseContext);
 
   console.log(currentUserUid)
 
@@ -25,7 +26,7 @@ const NavBar = () => {
         </ul>
         <div className="hidden md:flex items-center space-x-5">
           {currentUserUid ?
-            <ArrowRightOnRectangleIcon className="h-12 w-12 hover:text-blue-400" /> :
+            <ArrowRightOnRectangleIcon onClick={() => { logout() }}  className="h-12 w-12 hover:text-blue-400" /> :
             <UserIcon onClick={() => { setModalVisibility("") }} className="h-12 w-12 hover:text-blue-400" />}
         </div>
       </div>
@@ -39,8 +40,8 @@ const NavBar = () => {
             <li className="mb-2 "><Link to="/"><FilmIcon className="h-6 w-6 hover:text-blue-400" /></Link></li>
             <li className="mb-2"><Link to="/favorites"><HeartIcon className="h-6 w-6 hover:text-blue-400" /></Link></li>
             <li>
-              {currentUserUid?
-                <ArrowRightOnRectangleIcon  className="h-6 w-6 hover:text-blue-400" /> :
+              {currentUserUid ?
+                <ArrowRightOnRectangleIcon onClick={() => { logout() }} className="h-6 w-6 hover:text-blue-400" /> :
                 <UserIcon onClick={() => { setModalVisibility("") }} className="h-6 w-6 hover:text-blue-400" />}</li>
           </ul>
         </div> : null}

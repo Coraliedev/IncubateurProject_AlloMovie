@@ -1,5 +1,5 @@
 import { useState } from "react"
-import MovieModel from "../models/movie.model"
+import MovieModel from  "../models/Movie.model"
 import { API_KEY, DISCOVER_API, SEARCH_API } from "../utils/api"
 import axios from "axios"
 import { useQuery } from "@tanstack/react-query"
