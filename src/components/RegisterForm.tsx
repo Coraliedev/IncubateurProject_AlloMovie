@@ -33,25 +33,25 @@ const RegisterForm = () => {
       onSubmit={ handleRegister}
     >
       <Form>
-        <div>
-          <label htmlFor="email">Email</label>
-          <Field type="email" name="email" />
-          <ErrorMessage name="email" component="div" />
+        <div className="mb-3">
+          <label className="inline-block mb-2" htmlFor="email">Email</label>
+          <Field className="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded" type="email" name="email" />
+          <ErrorMessage className="text-red-500" name="email" component="div" />
         </div>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <Field type="password" name="password" />
-          <ErrorMessage name="password" component="div" />
+        <div className="mb-3">
+          <label className="inline-block mb-2" htmlFor="password">Password</label>
+          <Field className="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded" type="password" name="password" />
+          <ErrorMessage className="text-red-500" name="password" component="div" />
         </div>
 
-        <div>
-          <label htmlFor="confirmPassword">Confirm Password</label>
-          <Field type="password" name="confirmPassword" />
-          <ErrorMessage name="confirmPassword" component="div" />
+        <div className="mb-3">
+          <label className="inline-block mb-2" htmlFor="confirmPassword">Confirm Password</label>
+          <Field className="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded" type="password" name="confirmPassword" />
+          <ErrorMessage className="text-red-500" name="confirmPassword" component="div" />
         </div>
 
-        <button type="submit">Register</button>
+        <button className="block w-full mt-5 bg-blue-400 text-white py-1.5 px-3 rounded transition hover:bg-blue-500" type="submit">Register</button>
       </Form>
     </Formik>
   )
