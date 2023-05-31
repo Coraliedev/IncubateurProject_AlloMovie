@@ -1,7 +1,6 @@
 import { atom } from 'jotai'
 
 const isConnectedAtom = atom(false)
-const userUidAtom = atom(null)
-const modalVisibilityAtom = atom('')
+const authVisibilityAtom = atom('')
 
-export { isConnectedAtom, userUidAtom, modalVisibilityAtom }
+export { isConnectedAtom, authVisibilityAtom }

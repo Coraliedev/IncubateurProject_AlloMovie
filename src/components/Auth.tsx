@@ -2,17 +2,13 @@ import { useState } from "react"
 import LoginForm from "./LoginForm"
 import RegisterForm from "./RegisterForm"
 import { XMarkIcon } from "@heroicons/react/20/solid"
-import { useAtom } from "jotai"
-import { modalVisibilityAtom } from "../atoms"
+import { useFirebaseAuth } from "../services/firebase.service"
 
 const Auth = () => {
-  const [ modalVisibility, setModalVisibility ] = useAtom(modalVisibilityAtom)
   const [tab, setTab] = useState("login")
-
-  console.log(modalVisibility)
-
+  const { updateAuthVisibility, authVisibility } = useFirebaseAuth()
   return (
-    <div className={`${modalVisibility} fixed z-10 inset-0 overflow-y-auto`} id="modal">
+    <div className={`${authVisibility} fixed z-10 inset-0 overflow-y-auto`} id="modal">
       <div
         className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
       >
@@ -28,7 +24,7 @@ const Auth = () => {
           <div className="py-4 text-left px-6">
             <div className="flex justify-between items-center pb-4">
               <p className="text-2xl font-bold text-center">Your Account</p>
-              <div className="modal-close cursor-pointer z-50" onClick={() => setModalVisibility("hidden")}>
+              <div className="modal-close cursor-pointer z-50" onClick={() => updateAuthVisibility("hidden")}>
                 <XMarkIcon className="h-6 w-6" />
               </div>
             </div>

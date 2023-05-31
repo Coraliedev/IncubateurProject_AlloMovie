@@ -1,14 +1,10 @@
 import LoginFormModel from "../models/LoginForm.model";
 import * as Yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { login } from "../services/firebase.service";
-import { isConnectedAtom, modalVisibilityAtom } from "../atoms"
-import { useAtom } from 'jotai'
-
+import { useFirebaseAuth} from "../services/firebase.service";
 
 const LoginForm = () => {
-  const [ isConnected, setIsConnected ] = useAtom(isConnectedAtom)
-  const [ modalVisibility, setModalVisibility ] = useAtom(modalVisibilityAtom)
+  const { login } = useFirebaseAuth();
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Email is required'),
@@ -19,8 +15,6 @@ const LoginForm = () => {
     const { email, password, } = values;
     try {
       await login(email, password);
-      setIsConnected(true)
-      setModalVisibility("hidden");
     } catch (error) {
       console.log(error);
     }

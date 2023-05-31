@@ -1,21 +1,16 @@
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
 import RegisterFormModel from '../models/RegisterForm.model'
-import { register } from '../services/firebase.service';
-import { isConnectedAtom, modalVisibilityAtom } from "../atoms"
-import { useAtom } from 'jotai'
+import { useFirebaseAuth } from '../services/firebase.service';
 
 
 const RegisterForm = () => {
-  const [isConnected, setIsConnected] = useAtom(isConnectedAtom)
-  const [modalVisibility, setModalVisibility] = useAtom(modalVisibilityAtom)
+  const { register } = useFirebaseAuth();
 
   const handleRegister = async (values: RegisterFormModel) => {
     const { email, password, confirmPassword } = values;
     try {
       await register(email, password || confirmPassword);
-      setIsConnected(true)
-      setModalVisibility("hidden");
     } catch (error) {
       console.log(error);
     }
@@ -59,9 +54,6 @@ const RegisterForm = () => {
     </Formik>
     </>
   )
-
-
-
 }
 
 export default RegisterForm
