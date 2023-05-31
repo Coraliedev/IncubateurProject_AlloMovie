@@ -1,19 +1,20 @@
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
 import RegisterFormModel from '../models/RegisterForm.model'
-import { useContext } from 'react';
-import AuthFirebaseContext from '../context/AuthFirebaseContext';
-import AuthModalContext from '../context/AuthModalContext';
+import { register } from '../services/firebase.service';
+import { isConnectedAtom, modalVisibilityAtom } from "../atoms"
+import { useAtom } from 'jotai'
+
 
 const RegisterForm = () => {
-
-  const { register } = useContext(AuthFirebaseContext);
-  const { setModalVisibility } = useContext(AuthModalContext);
+  const [isConnected, setIsConnected] = useAtom(isConnectedAtom)
+  const [modalVisibility, setModalVisibility] = useAtom(modalVisibilityAtom)
 
   const handleRegister = async (values: RegisterFormModel) => {
     const { email, password, confirmPassword } = values;
     try {
       await register(email, password || confirmPassword);
+      setIsConnected(true)
       setModalVisibility("hidden");
     } catch (error) {
       console.log(error);
@@ -26,7 +27,9 @@ const RegisterForm = () => {
     confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match').required('Confirm password is required')
   })
 
+
   return (
+    <>
     <Formik
       initialValues={{ email: '', password: '', confirmPassword: '' }}
       validationSchema={RegisterSchema}
@@ -54,6 +57,7 @@ const RegisterForm = () => {
         <button className="block w-full mt-5 bg-blue-400 text-white py-1.5 px-3 rounded transition hover:bg-blue-500" type="submit">Register</button>
       </Form>
     </Formik>
+    </>
   )
 
 

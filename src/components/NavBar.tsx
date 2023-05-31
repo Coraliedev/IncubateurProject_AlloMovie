@@ -1,19 +1,22 @@
 import { Bars3Icon, FilmIcon, HeartIcon, UserIcon, ArrowRightOnRectangleIcon, XMarkIcon } from "@heroicons/react/20/solid"
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { Link } from "react-router-dom"
-import AuthFirebaseContext from "../context/AuthFirebaseContext"
-import AuthModalContext from "../context/AuthModalContext"
+import { logout } from "../services/firebase.service"
+import { isConnectedAtom, modalVisibilityAtom } from "../atoms"
+import { useAtom } from "jotai"
 
 const NavBar = () => {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false)
-  const { setModalVisibility } = useContext(AuthModalContext);
-  const { currentUserUid } = useContext(AuthFirebaseContext);
-  const { logout } = useContext(AuthFirebaseContext);
-
-  console.log(currentUserUid)
+  const [ isConnected, setIsConnected ] = useAtom(isConnectedAtom)
+  const [ modalVisibility, setModalVisibility ] = useAtom(modalVisibilityAtom)
 
   const handleBurgerClick = () => {
     setIsBurgerOpen(!isBurgerOpen)
+  }
+
+  const handleLogout = () => {
+    logout()
+    setIsConnected(false)
   }
 
   return (
@@ -25,9 +28,10 @@ const NavBar = () => {
           <li><Link to="/favorites"><HeartIcon className="h-12 w-12 hover:text-blue-400" /></Link></li>
         </ul>
         <div className="hidden md:flex items-center space-x-5">
-          {currentUserUid ?
-            <ArrowRightOnRectangleIcon onClick={() => { logout() }}  className="h-12 w-12 hover:text-blue-400" /> :
-            <UserIcon onClick={() => { setModalVisibility("") }} className="h-12 w-12 hover:text-blue-400" />}
+          {isConnected?
+            <ArrowRightOnRectangleIcon onClick={() => { handleLogout() }}  className="h-12 w-12 hover:text-blue-400" /> :
+            <UserIcon onClick={() => { setModalVisibility("") }} className="h-12 w-12 hover:text-blue-400" />
+            }
         </div>
       </div>
       <div className="relative flex">   <button onClick={() =>
@@ -40,8 +44,8 @@ const NavBar = () => {
             <li className="mb-2 "><Link to="/"><FilmIcon className="h-6 w-6 hover:text-blue-400" /></Link></li>
             <li className="mb-2"><Link to="/favorites"><HeartIcon className="h-6 w-6 hover:text-blue-400" /></Link></li>
             <li>
-              {currentUserUid ?
-                <ArrowRightOnRectangleIcon onClick={() => { logout() }} className="h-6 w-6 hover:text-blue-400" /> :
+              {isConnected ?
+                <ArrowRightOnRectangleIcon onClick={() => { handleLogout() }} className="h-6 w-6 hover:text-blue-400" /> :
                 <UserIcon onClick={() => { setModalVisibility("") }} className="h-6 w-6 hover:text-blue-400" />}</li>
           </ul>
         </div> : null}

@@ -1,12 +1,15 @@
-import { useContext, useState } from "react"
+import { useState } from "react"
 import LoginForm from "./LoginForm"
 import RegisterForm from "./RegisterForm"
-import AuthModalContext from "../context/AuthModalContext"
 import { XMarkIcon } from "@heroicons/react/20/solid"
+import { useAtom } from "jotai"
+import { modalVisibilityAtom } from "../atoms"
 
 const Auth = () => {
-  const { modalVisibility, setModalVisibility } = useContext(AuthModalContext);
+  const [ modalVisibility, setModalVisibility ] = useAtom(modalVisibilityAtom)
   const [tab, setTab] = useState("login")
+
+  console.log(modalVisibility)
 
   return (
     <div className={`${modalVisibility} fixed z-10 inset-0 overflow-y-auto`} id="modal">
