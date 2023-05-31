@@ -1,16 +1,12 @@
 import NavBar from "./NavBar"
 import SearchBar from "./SearchBar"
 
-interface HeaderProps {
-  setSearchKey: React.Dispatch<React.SetStateAction<string | undefined>>
-}
-
-const Header: React.FC<HeaderProps> = ({ setSearchKey })=> {
+const Header: React.FC = ()=> {
 
   return (
     <header>
       <NavBar />
-      <SearchBar setSearchKey={setSearchKey} />
+      <SearchBar />
     </header>
   )
 }

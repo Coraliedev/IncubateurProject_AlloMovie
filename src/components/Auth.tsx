@@ -5,8 +5,10 @@ import { XMarkIcon } from "@heroicons/react/20/solid"
 import { useFirebaseAuth } from "../services/firebase.service"
 
 const Auth = () => {
+
   const [tab, setTab] = useState("login")
-  const { updateAuthVisibility, authVisibility } = useFirebaseAuth()
+  const { setAuthVisibility, authVisibility } = useFirebaseAuth()
+
   return (
     <div className={`${authVisibility} fixed z-10 inset-0 overflow-y-auto`} id="modal">
       <div
@@ -24,7 +26,7 @@ const Auth = () => {
           <div className="py-4 text-left px-6">
             <div className="flex justify-between items-center pb-4">
               <p className="text-2xl font-bold text-center">Your Account</p>
-              <div className="modal-close cursor-pointer z-50" onClick={() => updateAuthVisibility("hidden")}>
+              <div className="modal-close cursor-pointer z-50" onClick={() => setAuthVisibility("hidden")}>
                 <XMarkIcon className="h-6 w-6" />
               </div>
             </div>

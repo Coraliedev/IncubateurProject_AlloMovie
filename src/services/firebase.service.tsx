@@ -27,10 +27,6 @@ export const useFirebaseAuth = () => {
     setAuthVisibility("hidden")
   };
 
-  const updateAuthVisibility = (visibility: string) => {
-    setAuthVisibility(visibility)
-  }
-
-  return { login, logout, register, isConnected, authVisibility, updateAuthVisibility };
+  return { login, logout, register, isConnected, authVisibility, setAuthVisibility };
 };
 

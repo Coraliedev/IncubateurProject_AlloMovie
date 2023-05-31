@@ -1,40 +1,36 @@
-import { Dispatch, SetStateAction } from "react";
+import { useMovies } from "../services/movies.service"
 
-interface PaginationProps {
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>
-}
+const Pagination: React.FC = () => {
 
-
-const Pagination: React.FC<PaginationProps>= ({ page, setPage }) => {
+  const { nextPage, previousPage } = useMovies()
 
   const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
-  const nextPage = () => {
+
+  const handlePreviousPage = () => {
+    previousPage()
     scrollTop()
-    setPage(page + 1)
   }
 
-  const previousPage = () => {
+  const handleNextPage = () => {
+    nextPage()
     scrollTop()
-    if(page == 1) return
-    setPage(page - 1)
   }
 
-return (
-  <div className="max-w-screen dark:bg-gray-900 text-gray-400 font-bold flex justify-around text-3xl md:text-6xl lg:text-7xl pb-10">
-    <button onClick={() => 
-      previousPage()
-}>
-      Previous
-    </button>
-    <button onClick={() => nextPage()
-    }>
-      Next
-    </button>
-  </div >
-)
+  return (
+    <div className="max-w-screen dark:bg-gray-900 text-gray-400 font-bold flex justify-around text-3xl md:text-6xl lg:text-7xl pb-10">
+      <button onClick={() =>
+        handlePreviousPage()
+      }>
+        Previous
+      </button>
+      <button onClick={() => handleNextPage()
+      }>
+        Next
+      </button>
+    </div >
+  )
 }
 
 export default Pagination

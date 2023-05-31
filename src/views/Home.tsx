@@ -1,59 +1,26 @@
-import { useState } from "react"
 import MovieModel from  "../models/Movie.model"
-import { API_KEY, DISCOVER_API, SEARCH_API } from "../utils/api"
-import axios from "axios"
-import { useQuery } from "@tanstack/react-query"
 import MovieCard from "../components/MovieCard"
 import Pagination from "../components/Pagination"
-import RequestResultsModel from "../models/RequestResult.model"
 import Header from "../components/Header"
+import { useMovies } from "../services/movies.service"
 
 const Home: React.FC = () => {
-  const [searchKey, setSearchKey] = useState<string | undefined>()
-  const [page, setPage] = useState<number>(1)
-  const [movies, setMovies] = useState<MovieModel[]>([] as MovieModel[])
-
-
-  // fetch movies from api with searchKey and page 
-  const fetchMovies = async () => {
-    {
-      const { data } = await axios.get<RequestResultsModel>(`${searchKey ? SEARCH_API : DISCOVER_API}`, {
-        params: {
-          api_key: API_KEY,
-          query: searchKey,
-          page: page
-        }
-      })
-      return data.results as MovieModel[]
-    }
-  }
-
-  // fetch and cache movies with react-query
-  const { isLoading } = useQuery<MovieModel[]>({
-    queryKey: ['movie-list', page, searchKey],
-    queryFn: fetchMovies,
-    refetchOnWindowFocus: false,
-    onSuccess: (res) => {
-      setMovies(res)
-    }
-  })
-
-
+  const { isLoading, data } = useMovies()
   return (
     <>
-      <Header setSearchKey={setSearchKey} />
-      {isLoading ? <p className="dark:bg-gray-900 text-gray-400 font-bold text-gray-100 font-bold flex justify-center items-center text-3xl md:text-4xl lg:text-6xl">Loading...</p> :
-        movies.length < 1 ?
+      <Header />
+      {isLoading ? <p className="dark:bg-gray-900 h-[80%] text-gray-400 font-bold text-gray-100 font-bold flex justify-center items-center text-3xl md:text-4xl lg:text-6xl">Loading...</p> :
+        data && data.length < 1 ?
           <h1 className="dark:bg-gray-900 h-[80%] text-gray-400 font-bold flex justify-center items-center text-3xl md:text-4xl lg:text-6xl">No movies found</h1> :
           <>
             <div className="max-w-screen dark:bg-gray-900 py-12 mx-auto md:px-12 px-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-16 gap-y-16">
-              {movies.map((movie: MovieModel) => (
+              {data?.map((movie: MovieModel) => (
                 <MovieCard movie={movie} key={movie.id} />
               ))}
             </div>
 
           </>}
-      <Pagination page={page} setPage={setPage} />
+      <Pagination />
     </>
   )
 }

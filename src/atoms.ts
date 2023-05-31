@@ -1,6 +1,8 @@
-import { atom } from 'jotai'
+import { atom } from "jotai";
 
-const isConnectedAtom = atom(false)
-const authVisibilityAtom = atom('')
+const isConnectedAtom = atom(false);
+const authVisibilityAtom = atom("hidden");
+const searchkeyAtom = atom("");
+const pageAtom = atom(1);
 
-export { isConnectedAtom, authVisibilityAtom }
+export { isConnectedAtom, authVisibilityAtom, searchkeyAtom, pageAtom };

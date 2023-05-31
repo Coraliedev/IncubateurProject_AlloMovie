@@ -5,9 +5,10 @@ import { useFirebaseAuth } from "../services/firebase.service"
 
 
 const NavBar = () => {
+
   const [isBurgerOpen, setIsBurgerOpen] = useState(false)
- 
-  const { logout, isConnected, updateAuthVisibility } = useFirebaseAuth()
+
+  const { logout, isConnected, setAuthVisibility } = useFirebaseAuth()
 
   const handleBurgerClick = () => {
     setIsBurgerOpen(!isBurgerOpen)
@@ -24,7 +25,7 @@ const NavBar = () => {
         <div className="hidden md:flex items-center space-x-5">
           {isConnected ?
             <ArrowRightOnRectangleIcon onClick={() => logout()} className="h-12 w-12 hover:text-blue-400" /> :
-            <UserIcon onClick={() => { updateAuthVisibility("") }} className="h-12 w-12 hover:text-blue-400" />
+            <UserIcon onClick={() => { setAuthVisibility("") }} className="h-12 w-12 hover:text-blue-400" />
           }
         </div>
       </div>
@@ -40,7 +41,7 @@ const NavBar = () => {
             <li>
               {isConnected ?
                 <ArrowRightOnRectangleIcon onClick={() => logout()} className="h-6 w-6 hover:text-blue-400" /> :
-                <UserIcon onClick={() => { updateAuthVisibility("") }} className="h-6 w-6 hover:text-blue-400" />}</li>
+                <UserIcon onClick={() => { setAuthVisibility("") }} className="h-6 w-6 hover:text-blue-400" />}</li>
           </ul>
         </div> : null}
       </div>
