@@ -1,10 +1,12 @@
 import axios from "axios"
+import { useAtom } from "jotai";
+import { useQuery } from "@tanstack/react-query"
+
 import RequestResultsModel from "../models/RequestResult.model"
 import { API_KEY, DISCOVER_API, SEARCH_API } from "../utils/api"
 import MovieModel from "../models/Movie.model"
-import { useQuery } from "@tanstack/react-query"
 import { pageAtom, searchkeyAtom } from "../atoms"
-import { useAtom } from "jotai";
+
 
 export const useMovies = () => {
   const [page, setPage] = useAtom(pageAtom)

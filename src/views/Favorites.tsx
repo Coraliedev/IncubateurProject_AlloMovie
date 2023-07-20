@@ -1,9 +1,9 @@
-import NavBar from "../components/NavBar"
+import Header from "../components/Header"
 
 const Favorites: React.FC = () => {
   return (
     <>
-    <NavBar />
+    <Header />
       <h1>Favorites Page</h1>
     </>
   )
