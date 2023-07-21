@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import MovieDetailModel from "../models/MovieDetail.model";
-import { StarIcon, PlayIcon, HeartIcon } from "@heroicons/react/20/solid";
+import { StarIcon, PlayIcon, HeartIcon, ArrowUturnLeftIcon } from "@heroicons/react/20/solid";
 import Youtube from "react-youtube";
 import ResultsModel from "../models/Results.model";
 import { useFavorite } from "../services/favorite.service";
@@ -51,7 +51,10 @@ const MovieDetail = ({ movie }: { movie: MovieDetailModel }) => {
           <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
-      <div className="flex flex-col items-center md:flex-row md:max-w-2xl lg:max-w-3xl xl:max-w-4xl text-white">
+      <div className="flex flex-col items-center md:flex-row md:max-w-2xl lg:max-w-3xl xl:max-w-4xl text-white relative">
+      <button onClick={() => window.history.back()} className="mt-6 ml-6 absolute top-0 right-0 p-3">
+        <ArrowUturnLeftIcon className="h-8 w-8 text-white" />
+      </button>
         <div className=" lg:w-[30%] h-auto md:h-[400px] w-[70%] ">
           <img
             className="w-[100%] h-full md:h-auto object-cover rounded-md"
@@ -100,7 +103,7 @@ const MovieDetail = ({ movie }: { movie: MovieDetailModel }) => {
               Watch Trailer
             </button>
             <button onClick={handleToggleFavorite} className="cursor-ponter ml-10">
-              {isFavorite ? <HeartIcon className="h-8 w-8 text-red-500" /> : <HeartIcon className="h-8 w-8 hover:text-red-500" />}
+              {isFavorite ? <HeartIcon className="h-8 w-8 text-red-500" /> : <HeartIcon className="h-8 w-8" />}
             </button>
 
           </div>
