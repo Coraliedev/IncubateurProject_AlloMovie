@@ -1,9 +1,60 @@
+import { useEffect, useState } from "react";
 import MovieDetailModel from "../models/MovieDetail.model";
-import { StarIcon } from "@heroicons/react/20/solid";
+import { StarIcon, PlayIcon } from "@heroicons/react/20/solid";
+import Youtube from "react-youtube";
+import ResultsModel from "../models/Results.model";
 
 const MovieDetail = ({ movie }: { movie: MovieDetailModel }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [trailer, setTrailer] = useState<ResultsModel>({} as ResultsModel);
+
+  useEffect(() => {
+    const trailerid = movie.videos.results.find(
+      (vid) => vid.name === "Official Trailer"
+    );
+    setTrailer(trailerid ? trailerid : movie.videos.results[0]);
+  }, [movie]);
+
+
+
   return (
     <div className="flex justify-center min-h-[85vh] bg-gray-900">
+      {showModal ? (
+        <>
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-transparent outline-none focus:outline-none">
+                {/*header*/}
+                <div className="flex items-start justify-between border-b p-2 ">
+                  <button
+                    className="p-1 ml-auto bg-transparent border-0 text-white opacity-100  float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    onClick={() => setShowModal(false)}
+                  >
+                    <span className="bg-transparent text-white opacity-100  h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      ×
+                    </span>
+                  </button>
+                </div>
+                {/*body*/}
+                <>
+                  <Youtube
+                    videoId={trailer.key}
+                    className="w-[50vh] h-[50vh] md:w-[100vh] md:h-[60vh]"
+                    opts={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                </>
+
+                {/*footer*/}
+              </div>
+            </div>
+          </div>
+          <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
       <div className="flex flex-col items-center md:flex-row md:max-w-2xl lg:max-w-3xl xl:max-w-4xl text-white">
         <div className=" lg:w-[30%] h-auto md:h-[400px] w-[70%] ">
           <img
@@ -18,7 +69,7 @@ const MovieDetail = ({ movie }: { movie: MovieDetailModel }) => {
           </p>
           <div className="flex flex-row items-center ">
             <div className="flex flex-row justify-center items-center mr-5 pb-2">
-              <StarIcon className="text-3xl mr-2" />
+              <StarIcon className="h-10 w-10" />
               <p className="text-4xl ">
                 {movie?.vote_average?.toFixed(1)}{" "}
               </p>
@@ -44,8 +95,18 @@ const MovieDetail = ({ movie }: { movie: MovieDetailModel }) => {
             </div>
           </div>
           <p className="text-gray-300 mb-8">{movie.overview} </p>
+          <div className="flex flex-row items-center ">
+            <button
+              onClick={() => setShowModal(true)}
+              className="border text-[#FFFDE3] text-base border-gray-300 py-2 px-5 flex flex-row items-center hover:bg-cyan-600 hover:border-cyan-600 mb-8 md:mb-0"
+            >
+              <PlayIcon className="h-6 w-6" />
+              Watch Trailer
+            </button>
+
+          </div>
         </div>
-        <div></div>
+
       </div>
     </div>
   );

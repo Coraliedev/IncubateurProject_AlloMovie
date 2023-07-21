@@ -1,4 +1,5 @@
 import GenreModel from "./GenreModel.model";
+import ResultsModel from "./Results.model";
 
 export default interface MovieDetailModel {
   adult: boolean;
@@ -24,6 +25,9 @@ export default interface MovieDetailModel {
   tagline: string;
   title: string;
   video: boolean;
+  videos: {
+    results: ResultsModel[];
+  };
   vote_average: number;
   vote_count: number;
 }

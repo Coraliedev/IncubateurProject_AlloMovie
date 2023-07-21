@@ -12,13 +12,10 @@ const Details: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   console.log(id)
   const [movie, setMovie] = useState<MovieDetailModel>()
-
+console.log(movie)
   useEffect(() => {
     const fetchMovie = async () => {
-      const { data } = await axios.get<MovieDetailModel>(`https://api.themoviedb.org/3/movie/${id}`, {
-        params: {
-          api_key: API_KEY,
-        }
+      const { data } = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`, { params: { append_to_response: "videos" }
       })
       setMovie(data)
     }
