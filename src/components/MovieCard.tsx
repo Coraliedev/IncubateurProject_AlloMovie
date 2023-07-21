@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom"
-import MovieModel from "../models/Movie.model"
 import { HeartIcon, EyeIcon } from "@heroicons/react/20/solid"
 import { useFavorite } from "../services/favorite.service";
+import { Movie } from "../models/UserData";
 
 
-const MovieCard = ({ movie }: { movie: MovieModel }) => {
-  const { isFavorite, handleToggleFavorite } = useFavorite(movie);
+const MovieCard = ({ movie }: { movie: Movie }) => {
+  const { handleToggleFavorite, userData } = useFavorite(movie);
+
+  const isFavorite = userData?.savedShows.find((favorite) => movie.id === favorite.id);
 
   const setColorVote = (vote: number) => {
     if (vote >= 8) {

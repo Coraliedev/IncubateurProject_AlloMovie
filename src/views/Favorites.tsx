@@ -1,10 +1,27 @@
+import { useMemo } from "react";
 import Header from "../components/Header"
+import { useFavorite } from "../services/favorite.service";
+import { Movie } from "../models/UserData";
+import MovieCard from "../components/MovieCard";
 
 const Favorites: React.FC = () => {
+  const { userData } = useFavorite();
+  console.log(userData)
+
+  const movieCards = useMemo(() => {
+    if (userData) {
+      return userData.savedShows.map((movie: Movie) => (
+        <MovieCard movie={movie} key={movie.id} />
+      ));
+    }
+    return [];
+  }, [userData]);
   return (
     <>
-    <Header />
-      <h1>Favorites Page</h1>
+      <Header />
+      <div className="max-w-screen dark:bg-gray-900 py-12 mx-auto md:px-12 px-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-16 gap-y-16">
+        {movieCards}
+      </div>
     </>
   )
 }

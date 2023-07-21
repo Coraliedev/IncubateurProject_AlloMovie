@@ -9,7 +9,9 @@ import { useFavorite } from "../services/favorite.service";
 const MovieDetail = ({ movie }: { movie: MovieDetailModel }) => {
   const [showModal, setShowModal] = useState(false);
   const [trailer, setTrailer] = useState<ResultsModel>({} as ResultsModel);
-  const { isFavorite, handleToggleFavorite } = useFavorite(movie);
+  const { handleToggleFavorite, userData } = useFavorite(movie);
+
+  const isFavorite = userData?.savedShows.find((favorite) => movie.id === favorite.id);
 
   useEffect(() => {
     const trailerid = movie.videos.results.find(

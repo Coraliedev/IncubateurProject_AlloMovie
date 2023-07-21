@@ -1,63 +1,67 @@
-import { useEffect, useState } from "react";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query"
 import MovieModel from "../models/Movie.model";
 import MovieDetailModel from "../models/MovieDetail.model";
 import { auth, db } from "../firebase";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import UserData from "../models/UserData";
 
 type Movie = MovieModel | MovieDetailModel;
 
-export const useFavorite = (movie: Movie) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+export const useFavorite = (movie?: Movie) => {
+  const queryClient = useQueryClient();
+  const email = auth.currentUser?.email;
 
-  interface UserData {
-    savedShows: Movie[];
+  // Create a query key for the user's favorites data
+  const userFavoritesQueryKey = ['favorites', email];
+
+  const FetchUserData = async () => {
+    if (email) {
+      const docRef = doc(db, 'users', email);
+      const docSnapshot = await getDoc(docRef);
+      console.log(docSnapshot.data())
+      return docSnapshot.data() as UserData;
+    }
+    return null;
   }
 
-  const handleToggleFavorite = async () => {
-    const email = auth.currentUser?.email; 
+  const { data: userData } = useQuery<UserData | null>(userFavoritesQueryKey, FetchUserData, {
+    // Provide initialData as null to handle loading state
+    initialData: null,
+  });
 
-    if (!email) return;
-    const docRef = doc(db, 'users', email);
 
-    // Get the existing document data to check if the video is already a favorite
-    const docSnapshot = await getDoc(docRef);
-    if (!docSnapshot.exists()) return;
-
-    const userData = docSnapshot.data() as UserData; 
-
-    const existingFavorite = userData.savedShows.find((favorite) => movie.id === favorite.id);
-
-    if (existingFavorite) {
-      // Remove the video from favorites using arrayRemove
-      await updateDoc(docRef, {
-        savedShows: userData.savedShows.filter((favorite) => movie.id !== favorite.id),
-      });
-      setIsFavorite(false);
-    } else {
-      // Add the video to favorites using arrayUnion
-      await updateDoc(docRef, {
-        savedShows: arrayUnion(movie),
-      });
-      setIsFavorite(true);
-    }
-  };
-
-  useEffect(() => {
-    const email = auth.currentUser?.email;
-    if (!email) return;
-    const docRef = doc(db, 'users', email);
-
-    const checkIfFavorite = async () => {
-      const docSnapshot = await getDoc(docRef);
-      if (docSnapshot.exists()) {
+  // Define a mutation function for adding/removing favorites
+  const addRemoveFavoriteMutation = useMutation(
+    async (movie: Movie) => {
+      if (email) {
+        const docRef = doc(db, 'users', email);
+        const docSnapshot = await getDoc(docRef);
         const userData = docSnapshot.data() as UserData;
+
         const existingFavorite = userData.savedShows.find((favorite) => movie.id === favorite.id);
-        setIsFavorite(!!existingFavorite); // Set the state to true if the video is already in favorites
+
+        if (existingFavorite) {
+          await updateDoc(docRef, {
+            savedShows: userData.savedShows.filter((favorite) => movie.id !== favorite.id),
+          });
+        } else {
+          await updateDoc(docRef, {
+            savedShows: arrayUnion(movie),
+          });
+        }
+
+        // After modifying favorites, add the new data to the cache of deleted data to update the UI
+        queryClient.setQueryData(userFavoritesQueryKey, {
+          savedShows: existingFavorite
+            ? userData.savedShows.filter((favorite) => movie.id !== favorite.id)
+            : [...userData.savedShows, movie],
+        });
       }
-    };
+    }
+  );
 
-    checkIfFavorite();
-  }, [movie.id]);
-
-  return { isFavorite, handleToggleFavorite };
+  return {
+    handleToggleFavorite: () => addRemoveFavoriteMutation.mutate(movie!),
+    userData
+  };
 };
