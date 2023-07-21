@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import MovieDetailModel from "../models/MovieDetail.model";
-import { StarIcon, PlayIcon } from "@heroicons/react/20/solid";
+import { StarIcon, PlayIcon, HeartIcon } from "@heroicons/react/20/solid";
 import Youtube from "react-youtube";
 import ResultsModel from "../models/Results.model";
+import { useFavorite } from "../services/favorite.service";
+
 
 const MovieDetail = ({ movie }: { movie: MovieDetailModel }) => {
   const [showModal, setShowModal] = useState(false);
   const [trailer, setTrailer] = useState<ResultsModel>({} as ResultsModel);
+  const { isFavorite, handleToggleFavorite } = useFavorite(movie);
 
   useEffect(() => {
     const trailerid = movie.videos.results.find(
@@ -15,17 +18,13 @@ const MovieDetail = ({ movie }: { movie: MovieDetailModel }) => {
     setTrailer(trailerid ? trailerid : movie.videos.results[0]);
   }, [movie]);
 
-
-
   return (
     <div className="flex justify-center min-h-[85vh] bg-gray-900">
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-transparent outline-none focus:outline-none">
-                {/*header*/}
                 <div className="flex items-start justify-between border-b p-2 ">
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-white opacity-100  float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -36,7 +35,6 @@ const MovieDetail = ({ movie }: { movie: MovieDetailModel }) => {
                     </span>
                   </button>
                 </div>
-                {/*body*/}
                 <>
                   <Youtube
                     videoId={trailer.key}
@@ -47,8 +45,6 @@ const MovieDetail = ({ movie }: { movie: MovieDetailModel }) => {
                     }}
                   />
                 </>
-
-                {/*footer*/}
               </div>
             </div>
           </div>
@@ -102,6 +98,9 @@ const MovieDetail = ({ movie }: { movie: MovieDetailModel }) => {
             >
               <PlayIcon className="h-6 w-6" />
               Watch Trailer
+            </button>
+            <button onClick={handleToggleFavorite} className="cursor-ponter ml-10">
+              {isFavorite ? <HeartIcon className="h-8 w-8 text-red-500" /> : <HeartIcon className="h-8 w-8 hover:text-red-500" />}
             </button>
 
           </div>
