@@ -2,6 +2,8 @@ import { Bars3Icon, FilmIcon, HeartIcon, UserIcon, ArrowRightOnRectangleIcon, XM
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { useFirebaseAuth } from "../services/firebase.service"
+import { useAtom } from "jotai"
+import { searchkeyAtom } from "../atoms"
 
 
 const NavBar = () => {
@@ -9,9 +11,14 @@ const NavBar = () => {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false)
 
   const { logout, isConnected, setAuthVisibility } = useFirebaseAuth()
+  const [searchKey, setSearchKey] = useAtom(searchkeyAtom)
 
   const handleBurgerClick = () => {
     setIsBurgerOpen(!isBurgerOpen)
+  }
+
+  const resetSearchKey = () => {
+    setSearchKey("")
   }
 
   return (
@@ -19,7 +26,7 @@ const NavBar = () => {
       <div className="px-5 xl:px-12 py-6 flex w-full items-center navbar-menu">
         <h1 className="text-xl md:text-4xl lg:text-5xl">ALLOMOVIE</h1>
         <ul className="hidden md:flex px-10 mx-auto space-x-12">
-          <li><Link to="/"><FilmIcon className="h-12 w-12 hover:text-blue-400" /></Link></li>
+          <li><Link to="/" onClick={resetSearchKey}><FilmIcon className="h-12 w-12 hover:text-blue-400" /></Link></li>
           <li><Link to="/favorites"><HeartIcon className="h-12 w-12 hover:text-blue-400" /></Link></li>
         </ul>
         <div className="hidden md:flex items-center space-x-5">
