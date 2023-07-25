@@ -13,6 +13,7 @@ type Movie = MovieModel | MovieDetailModel;
 export const useFavorite = (movie?: Movie) => {
   const queryClient = useQueryClient();
   const email = auth.currentUser?.email;
+
   const { setAuthVisibility } = useFirebaseAuth();
   const [searchKey, setSearchKey] = useAtom(searchkeyAtom);
 

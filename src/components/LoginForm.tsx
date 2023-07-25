@@ -44,20 +44,20 @@ const LoginForm = () => {
         {formStatus.message}
       </div>
       <Formik
-        initialValues={{ email: '', password: '' }}
+        initialValues={{ email: 'testfavorites@test.fr', password: 'password' }}
         validationSchema={LoginSchema}
         onSubmit={handleLogin}
       >
         <Form>
           <div className="mb-3">
             <label className="inline-block mb-2" htmlFor="email">Email</label>
-            <Field className="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded" type="email" name="email" id="email" />
+            <Field className="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded" type="email" name="email" id="email" value="testfavorites@test.fr"/>
             <ErrorMessage className="text-red-500" name="email" component="div" />
           </div>
 
           <div className="mb-3">
             <label className="inline-block mb-2" htmlFor="password">Password</label>
-            <Field className="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded" type="password" name="password" id="password" />
+            <Field className="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded" type="password" name="password" id="password" value="password" />
             <ErrorMessage className="text-red-500" name="password" component="div" />
           </div>
 
