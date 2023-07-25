@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom"
 import { HeartIcon, EyeIcon } from "@heroicons/react/20/solid"
 import { useFavorite } from "../services/favorite.service";
-import MovieModel from "../models/Movie.model";
+import { Movie } from "../models/UserData";
 
 
-const MovieCard = ({ movie }: { movie: MovieModel }) => {
+const MovieCard = ({ movie }: { movie: Movie }) => {
   const { handleToggleFavorite, userData } = useFavorite(movie);
   const isFavorite = userData?.savedShows.find((favorite) => movie.id === favorite.id);
 

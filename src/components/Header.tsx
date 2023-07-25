@@ -1,12 +1,12 @@
 import NavBar from "./NavBar"
 import SearchBar from "./SearchBar"
 
-const Header: React.FC = ()=> {
+const Header = ({page} : {page:string} )=> {
 
   return (
     <header>
       <NavBar />
-      <SearchBar />
+      <SearchBar page={page} />
     </header>
   )
 }

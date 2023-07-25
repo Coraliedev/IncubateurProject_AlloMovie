@@ -21,7 +21,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Header />
+      <Header page="movies" />
       {isLoading ? (
         <p className="dark:bg-gray-900 h-[80%] text-gray-400 font-bold text-gray-100 font-bold flex justify-center items-center text-3xl md:text-4xl lg:text-6xl">Loading...</p>
       ) : data && data.length < 1 ? (
