@@ -4,12 +4,14 @@ import MovieDetailModel from "../models/MovieDetail.model";
 import { auth, db } from "../firebase";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import UserData from "../models/UserData";
+import { useFirebaseAuth } from "./firebase.service";
 
 type Movie = MovieModel | MovieDetailModel;
 
 export const useFavorite = (movie?: Movie) => {
   const queryClient = useQueryClient();
   const email = auth.currentUser?.email;
+  const { setAuthVisibility } = useFirebaseAuth()
 
   // Create a query key for the user's favorites data
   const userFavoritesQueryKey = ['favorites', email];
@@ -33,6 +35,7 @@ export const useFavorite = (movie?: Movie) => {
   // Define a mutation function for adding/removing favorites
   const addRemoveFavoriteMutation = useMutation(
     async (movie: Movie) => {
+      console.log(email)
       if (email) {
         const docRef = doc(db, 'users', email);
         const docSnapshot = await getDoc(docRef);
@@ -57,11 +60,20 @@ export const useFavorite = (movie?: Movie) => {
             : [...userData.savedShows, movie],
         });
       }
+      else {
+        setAuthVisibility("")
+      }
     }
   );
 
+  const handleToggleFavorite = () => {
+    if (movie) {
+      addRemoveFavoriteMutation.mutate(movie);
+    }
+  };
+
   return {
-    handleToggleFavorite: () => addRemoveFavoriteMutation.mutate(movie!),
-    userData
+    userData,
+    handleToggleFavorite,
   };
 };

@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom"
 import { HeartIcon, EyeIcon } from "@heroicons/react/20/solid"
 import { useFavorite } from "../services/favorite.service";
-import { Movie } from "../models/UserData";
+import MovieModel from "../models/Movie.model";
 
 
-const MovieCard = ({ movie }: { movie: Movie }) => {
+const MovieCard = ({ movie }: { movie: MovieModel }) => {
   const { handleToggleFavorite, userData } = useFavorite(movie);
-
   const isFavorite = userData?.savedShows.find((favorite) => movie.id === favorite.id);
 
   const setColorVote = (vote: number) => {
@@ -30,7 +29,7 @@ const MovieCard = ({ movie }: { movie: Movie }) => {
         className="rounded-xl h-full"
       />
       <p className={`${setColorVote(movie.vote_average)} flex justify-center items-center rounded-tl-xl rounded-br-lg absolute top-0 left-0 w-10 h-10 max-[380px]:w-6 max-[380px]:h-6`}>{movie.vote_average.toFixed(1)}</p>
-      <button onClick={handleToggleFavorite}>
+      <button onClick={handleToggleFavorite}  className="cursor-ponter ml-10">
         {isFavorite ? <HeartIcon className="absolute top-0 right-1 w-10 h-10 max-[380px]:w-6 max-[380px]:h-6 text-red-500" /> : <HeartIcon className="absolute top-0 right-1 w-10 h-10 max-[380px]:w-6 max-[380px]:h-6 text-gray-400" />}
       </button>
       <Link to={`/details/${movie.id}`}  >

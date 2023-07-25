@@ -12,6 +12,7 @@ const MovieDetail = ({ movie }: { movie: MovieDetailModel }) => {
   const { handleToggleFavorite, userData } = useFavorite(movie);
 
   const isFavorite = userData?.savedShows.find((favorite) => movie.id === favorite.id);
+  console.log(isFavorite)
 
   useEffect(() => {
     const trailerid = movie.videos.results.find(
