@@ -68,8 +68,8 @@ const MovieDetail = ({ movie }: { movie: MovieDetailModel }) => {
           <p className="text-3xl md:text-5xl mb-3 mt-3 md:mt-0">
             {movie.title || movie.original_title}{" "}
           </p>
-          <div className="flex flex-row items-center ">
-            <div className="flex flex-row justify-center items-center mr-5 pb-2">
+          <div className="flex flex-row items-center flex-wrap">
+            <div className="flex flex-row items-center mr-5 pb-2 w-full md:w-fit">
               <StarIcon className="h-10 w-10" />
               <p className="text-4xl ">
                 {movie?.vote_average?.toFixed(1)}{" "}
@@ -105,7 +105,7 @@ const MovieDetail = ({ movie }: { movie: MovieDetailModel }) => {
               Watch Trailer
             </button>
             <button onClick={handleToggleFavorite} className="cursor-ponter ml-10">
-              {isFavorite ? <HeartIcon className="h-8 w-8 text-red-500" /> : <HeartIcon className="h-8 w-8" />}
+              {isFavorite ? <HeartIcon className="h-8 w-8 text-red-500 ml-6 mb-8 md:mb-0" /> : <HeartIcon className="h-8 w-8 ml-6 mb-8 md:mb-0" />}
             </button>
 
           </div>

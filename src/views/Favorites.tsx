@@ -22,7 +22,7 @@ const Favorites: React.FC = () => {
 
   const connexionRequired = () => {
     return (
-      <div className="dark:bg-gray-900 h-[80%] text-gray-400 font-bold flex flex-col justify-center items-center text-3xl md:text-4xl lg:text-6xl">
+      <div className="dark:bg-gray-900 h-[80%] text-gray-400 font-bold flex flex-col justify-center text-center items-center text-3xl md:text-4xl lg:text-6xl">
         <p>You must be connected to see your favorites</p>
         <button onClick={() => setAuthVisibility("visible")} className="ml-4 text-blue-500 hover:text-blue-700">Connect</button>
       </div>
